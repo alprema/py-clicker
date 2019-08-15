@@ -1,0 +1,2 @@
+clicker-identifier: 'CLICKER_001'
+outgoing-url: 'https://webhook.site/8e7f8697-472f-4e5c-922b-c705c9db2896?clicker_identifier={clicker_identifier}&color={color}'
