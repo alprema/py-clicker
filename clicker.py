@@ -12,10 +12,10 @@ BLUE = 'Blue'
 config_file_path = os.path.join(os.path.dirname(os.path.realpath(__file__)), "clicker_config.yaml")
 
 with open(config_file_path, 'r') as stream:
-	try:
-		configuration = yaml.safe_load(stream)
-	except yaml.YAMLError as exc:
-		print(exc)
+    try:
+        configuration = yaml.safe_load(stream)
+    except yaml.YAMLError as exc:
+        print(exc)
 
 print('Configured with identifier: ' + configuration['clicker-identifier'])
 
@@ -26,10 +26,10 @@ scores = { RED: 0, BLUE: 0 }
 
 
 def button_pressed(color):
-	scores[color] += 1
-	update_score()
-	print('Button pressed (%s), calling URL' % color)
-	loop.call_soon_threadsafe(lambda _: requests.get(configuration['outgoing-url'].format(clicker_identifier=configuration['clicker-identifier'], color=color)), '')
+    scores[color] += 1
+    update_score()
+    print('Button pressed (%s), calling URL' % color)
+    loop.call_soon_threadsafe(lambda _: requests.get(configuration['outgoing-url'].format(clicker_identifier=configuration['clicker-identifier'], color=color)), '')
 
 
 _last_reset_press_tick = pi.get_current_tick()
@@ -53,7 +53,8 @@ def reset_pressed(gpio, level, tick):
         update_score()
 
 def update_score():
-	display.show(f"{scores[RED]:02}{scores[BLUE]:02}")    
+    display.show(f"{scores[RED]:02}{scores[BLUE]:02}")    
+
 
 def _setup_switch(pin: int, callback, edge=pigpio.FALLING_EDGE):
     pi.set_mode(pin, pigpio.INPUT)
