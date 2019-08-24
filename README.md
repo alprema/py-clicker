@@ -3,6 +3,7 @@ Raspberry Pi score counter for Canne de combat
 
 ## Setup
 **Version:** Rasbian Buster Lite
+
 **Setup:**
 * Configure Wifi connection / autologin in `raspi-config`
 * Install pigpio (http://abyz.me.uk/rpi/pigpio/download.html)
