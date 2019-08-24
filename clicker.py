@@ -1,14 +1,17 @@
+import os
 import pigpio
-from timeit import default_timer as timer
 import requests
 import yaml
 import asyncio
+from timeit import default_timer as timer
 from display import Display
 
 RED = 'Red'
 BLUE = 'Blue'
 
-with open("clicker_config.yaml", 'r') as stream:
+config_file_path = os.path.join(os.path.dirname(os.path.realpath(__file__)), "clicker_config.yaml")
+
+with open(config_file_path, 'r') as stream:
 	try:
 		configuration = yaml.safe_load(stream)
 	except yaml.YAMLError as exc:
