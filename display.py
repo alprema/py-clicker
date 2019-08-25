@@ -20,11 +20,11 @@ class Display:
 
     # Mapping between segments and GPIO ports
     #                   a   b   c   d   e   f   g  dp
-    segments_pinouts=[ 25, 12, 6, 22,  5, 24, 13, 19]
+    segments_pinouts=[ 7, 21, 13, 5,  11, 12, 19, 6]
 
     # Mapping between digits and GPIO ports
     #                  1   2   3   4
-    digits_pinouts=[ 16, 20, 21, 17]
+    digits_pinouts=[ 8, 16, 20, 26]
     
     def __init__(self, pi):
         self.pi = pi

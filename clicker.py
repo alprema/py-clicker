@@ -62,8 +62,8 @@ def _setup_switch(pin: int, callback, edge=pigpio.FALLING_EDGE):
     pi.set_glitch_filter(pin, 20 * 1000) # Time in µs
     pi.callback(pin, edge, callback)
 
-_setup_switch(4, lambda gpio, level, tick: button_pressed(RED))
-_setup_switch(18, lambda gpio, level, tick: button_pressed(BLUE))
+_setup_switch(25, lambda gpio, level, tick: button_pressed(RED))
+_setup_switch(17, lambda gpio, level, tick: button_pressed(BLUE))
 _setup_switch(23, reset_pressed, edge=pigpio.EITHER_EDGE)
 
 
