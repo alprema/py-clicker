@@ -24,8 +24,10 @@ display = Display(pi)
 loop = asyncio.get_event_loop()
 scores = { RED: 0, BLUE: 0 }
 
-
-def button_pressed(color):
+def button_pressed(tick, color):
+    if tick - startup_tick < 100 * 1000: # Ignoring presses in the first 100 ms to avoid ghost clicks
+        return
+    
     scores[color] += 1
     update_score()
     print('Button pressed (%s), calling URL' % color)
@@ -62,15 +64,19 @@ def _setup_switch(pin: int, callback, edge=pigpio.FALLING_EDGE):
     pi.set_glitch_filter(pin, 20 * 1000) # Time in µs
     pi.callback(pin, edge, callback)
 
-_setup_switch(25, lambda gpio, level, tick: button_pressed(RED))
-_setup_switch(17, lambda gpio, level, tick: button_pressed(BLUE))
-_setup_switch(23, reset_pressed, edge=pigpio.EITHER_EDGE)
-
-
-display.show("0000")
-
-
 try:
+
+    import socket
+    print(f"IP: {socket.gethostbyname('raspberrypi.local')}")
+    display.show(f"ip {socket.gethostbyname('raspberrypi.local')}", show_times=2)
+
+    display.show("0000")
+
+    startup_tick = pi.get_current_tick()
+    _setup_switch(25, lambda gpio, level, tick: button_pressed(tick, RED))
+    _setup_switch(17, lambda gpio, level, tick: button_pressed(tick, BLUE))
+    _setup_switch(23, reset_pressed, edge=pigpio.EITHER_EDGE)
+
     loop.run_forever()
 except KeyboardInterrupt:
     print("Exiting")
