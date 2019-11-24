@@ -10,7 +10,8 @@
 * 1 x ~65mm x ~75mm prototype board
 
 ## Pinout
-https://www.lucidchart.com/invitations/accept/e652c709-daa6-480c-b3a0-5e042be13df4
+![Wiring](wiring.png)
+(Source: https://www.lucidchart.com/invitations/accept/e652c709-daa6-480c-b3a0-5e042be13df4)
 
 ### Display
 | 7-segment pin | GPIO #| Resistor |
