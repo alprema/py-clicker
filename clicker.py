@@ -3,6 +3,7 @@ import pigpio
 import requests
 import yaml
 import asyncio
+from datetime import datetime
 from timeit import default_timer as timer
 from display import Display
 
@@ -23,6 +24,7 @@ pi = pigpio.pi()
 display = Display(pi)
 loop = asyncio.get_event_loop()
 scores = { RED: 0, BLUE: 0 }
+log_file = open(f"clicker_log_{datetime.now().strftime('%Y-%m-%d_%H-%M-%S')}", "w+")
 
 def button_pressed(tick, color):
     if tick - startup_tick < 100 * 1000: # Ignoring presses in the first 100 ms to avoid ghost clicks
@@ -31,6 +33,8 @@ def button_pressed(tick, color):
     scores[color] += 1
     update_score()
     print('Button pressed (%s), calling URL' % color)
+    log_file.write(f"{datetime.now().strftime('%Y-%m-%d_%H-%M-%S.%f')}  Blue: {scores[BLUE]} Red: {scores[RED]}\n")
+    log_file.flush()
     loop.call_soon_threadsafe(lambda _: requests.get(configuration['outgoing-url'].format(clicker_identifier=configuration['clicker-identifier'], color=color)), '')
 
 
@@ -65,13 +69,12 @@ def _setup_switch(pin: int, callback, edge=pigpio.FALLING_EDGE):
     pi.callback(pin, edge, callback)
 
 try:
-
     import socket
     print(f"IP: {socket.gethostbyname('raspberrypi.local')}")
     display.show(f"ip {socket.gethostbyname('raspberrypi.local')}", show_times=2)
 
     display.show("0000")
-
+    
     startup_tick = pi.get_current_tick()
     _setup_switch(25, lambda gpio, level, tick: button_pressed(tick, RED))
     _setup_switch(17, lambda gpio, level, tick: button_pressed(tick, BLUE))
@@ -80,6 +83,7 @@ try:
     loop.run_forever()
 except KeyboardInterrupt:
     print("Exiting")
+    log_file.close()
     loop.close()
 
 display.shutdown()
