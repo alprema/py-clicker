@@ -59,7 +59,7 @@ def reset_pressed(gpio, level, tick):
         update_score()
 
 def update_score():
-    display.show(f"{scores[RED]:02}{scores[BLUE]:02}")    
+    display.show(f"{scores[RED]%100:02}{scores[BLUE]%100:02}")    
 
 
 def _setup_switch(pin: int, callback, edge=pigpio.FALLING_EDGE):
