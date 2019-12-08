@@ -34,3 +34,10 @@
 |Red|25|
 |Green|23|
 |Blue|17|
+
+## Casing
+### Components
+Velleman case G738 (https://www.velleman.eu/products/view?id=60941)
+
+### Cutout diagram
+![CutoutSchema](casing_cutout.jpg)
