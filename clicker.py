@@ -2,13 +2,19 @@ import os
 import pigpio
 import requests
 import yaml
+import json
 import asyncio
 from datetime import datetime
 from timeit import default_timer as timer
+from enum import Enum
 from display import Display
 
 RED = 'Red'
 BLUE = 'Blue'
+
+class PressType(Enum):
+    long_press="long_press"
+    short_press="short_press"
 
 config_file_path = os.path.join(os.path.dirname(os.path.realpath(__file__)), "clicker_config.yaml")
 
@@ -24,7 +30,23 @@ pi = pigpio.pi()
 display = Display(pi)
 loop = asyncio.get_event_loop()
 scores = { RED: 0, BLUE: 0 }
+api_call_count = 0
 log_file = open(f"clicker_log_{datetime.now().strftime('%Y-%m-%d_%H-%M-%S')}", "w+")
+
+def call_api(button: int, press_type: PressType):
+    global api_call_count
+    api_call_count += 1
+    data = {
+        "serial": configuration['clicker-identifier'],
+        "button": button,
+        "typeClick": press_type.value,
+        "internalState": {
+            "0": api_call_count,
+            "1": scores[RED],
+            "2": scores[BLUE]
+        }
+    }
+    requests.post(configuration['outgoing-url'], data=json.dumps(data))
 
 def button_pressed(tick, color):
     if tick - startup_tick < 100 * 1000: # Ignoring presses in the first 100 ms to avoid ghost clicks
@@ -35,7 +57,7 @@ def button_pressed(tick, color):
     print('Button pressed (%s), calling URL' % color)
     log_file.write(f"{datetime.now().strftime('%Y-%m-%d_%H-%M-%S.%f')}  Blue: {scores[BLUE]} Red: {scores[RED]}\n")
     log_file.flush()
-    loop.call_soon_threadsafe(lambda _: requests.get(configuration['outgoing-url'].format(clicker_identifier=configuration['clicker-identifier'], color=color)), '')
+    loop.call_soon_threadsafe(lambda _: call_api(1 if color == RED else 2, PressType.short_press), '')
 
 
 _last_reset_press_tick = pi.get_current_tick()
@@ -57,6 +79,7 @@ def reset_pressed(gpio, level, tick):
         scores[RED] = 0
         scores[BLUE] = 0
         update_score()
+        loop.call_soon_threadsafe(lambda _: call_api(0, PressType.long_press), '')
 
 def update_score():
     display.show(f"{scores[RED]%100:02}{scores[BLUE]%100:02}")    
