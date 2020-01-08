@@ -26,6 +26,7 @@ with open(config_file_path, 'r') as stream:
 
 print('Configured with identifier: ' + configuration['clicker-identifier'])
 
+first_click_made = False
 pi = pigpio.pi()
 display = Display(pi)
 loop = asyncio.get_event_loop()
@@ -49,8 +50,13 @@ def call_api(button: int, press_type: PressType):
     requests.post(configuration['outgoing-url'], data=json.dumps(data), headers={"Content-Type": "application/json"})
 
 def button_pressed(tick, color):
-    if tick - startup_tick < 100 * 1000: # Ignoring presses in the first 100 ms to avoid ghost clicks
+    global first_click_made
+    # Ignoring presses in the first 100 ms to avoid ghost clicks
+    # but using first_click_made to prevent ignoring clicks after wraparound every 71.6 minutes
+    if not first_click_made and tick - startup_tick < 100 * 1000: 
         return
+    
+    first_click_made = True
     
     scores[color] += 1
     update_score()
