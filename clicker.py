@@ -38,7 +38,7 @@ def call_api(button: int, press_type: PressType):
     api_call_count += 1
     data = {
         "serial": configuration['clicker-identifier'],
-        "button": button,
+        "buttonId": button,
         "typeClick": press_type.value,
         "internalState": {
             "0": api_call_count,
@@ -46,7 +46,7 @@ def call_api(button: int, press_type: PressType):
             "2": scores[BLUE]
         }
     }
-    requests.post(configuration['outgoing-url'], data=json.dumps(data))
+    requests.post(configuration['outgoing-url'], data=json.dumps(data), headers={"Content-Type": "application/json"})
 
 def button_pressed(tick, color):
     if tick - startup_tick < 100 * 1000: # Ignoring presses in the first 100 ms to avoid ghost clicks
