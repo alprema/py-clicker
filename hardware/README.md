@@ -46,13 +46,13 @@ The screen board needs to be 7.5cm x 6.5cm (8 3-holes connectors)
 
 ### Assembly
 #### Cables
-Raspberry to screen board: 7cm
-Raspberry to buttons: 10cm
-Raspberry to power supply: 17cm
-Power supply to switch: 17cm
+* Raspberry to screen board: 7cm
+* Raspberry to buttons: 10cm
+* Raspberry to power supply: 17cm
+* Power supply to switch: 17cm
 
 #### Spacers
 Nylon auto-adhesive spacers 
-Power supply: HC-5
-Raspberry: HC-8
-Screen board: HC-6
+* Power supply: HC-5
+* Raspberry: HC-8
+* Screen board: HC-6
