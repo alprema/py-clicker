@@ -99,8 +99,10 @@ def _setup_switch(pin: int, callback, edge=pigpio.FALLING_EDGE):
 
 try:
     import socket
-    print(f"IP: {socket.gethostbyname('raspberrypi.local')}")
-    display.show(f"ip {socket.gethostbyname('raspberrypi.local')}", show_times=2)
+    hostname = socket.gethostname()
+    ip = socket.gethostbyname(f'{hostname}.local')
+    print(f"IP: {ip}")
+    display.show(f"ip {ip}", show_times=2)
 
     display.show("0000")
     
