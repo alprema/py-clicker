@@ -47,7 +47,8 @@ def call_api(button: int, press_type: PressType):
             "2": scores[BLUE]
         }
     }
-    requests.post(configuration['outgoing-url'], data=json.dumps(data), headers={"Content-Type": "application/json"})
+    
+    requests.post(configuration['outgoing-url'], data=json.dumps(data), headers={"Content-Type": "application/json", "X-Requested-With":"XMLHttpRequest"})
 
 def button_pressed(tick, color):
     global first_click_made
