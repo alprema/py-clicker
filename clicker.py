@@ -103,7 +103,7 @@ try:
     hostname = socket.gethostname()
     ip = socket.gethostbyname(f'{hostname}.local')
     print(f"IP: {ip}")
-    display.show(f"ip {ip}", show_times=2)
+    display.show(f"{ip}", show_times=2)
 
     display.show("0000")
     
