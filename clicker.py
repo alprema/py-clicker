@@ -23,12 +23,13 @@ with open(config_file_path, 'r') as stream:
         configuration = yaml.safe_load(stream)
     except yaml.YAMLError as exc:
         print(exc)
+        exit(1)
 
 print('Configured with identifier: ' + configuration['clicker-identifier'])
 
 first_click_made = False
 pi = pigpio.pi()
-display = Display(pi)
+display = Display()
 loop = asyncio.get_event_loop()
 scores = { RED: 0, BLUE: 0 }
 api_call_count = 0
@@ -60,7 +61,12 @@ def button_pressed(tick, color):
     first_click_made = True
     
     scores[color] += 1
-    update_score()
+    
+    if color == RED:
+        display.set_red_score(scores[RED])
+    else:
+        display.set_blue_score(scores[BLUE])
+
     print('Button pressed (%s), calling URL' % color)
     log_file.write(f"{datetime.now().strftime('%Y-%m-%d_%H-%M-%S.%f')}  Blue: {scores[BLUE]} Red: {scores[RED]}\n")
     log_file.flush()
@@ -89,8 +95,8 @@ def reset_pressed(gpio, level, tick):
         loop.call_soon_threadsafe(lambda _: call_api(0, PressType.long_press), '')
 
 def update_score():
-    display.show(f"{scores[RED]%100:02}{scores[BLUE]%100:02}")    
-
+    display.set_red_score(scores[RED])
+    display.set_blue_score(scores[BLUE])
 
 def _setup_switch(pin: int, callback, edge=pigpio.FALLING_EDGE):
     pi.set_mode(pin, pigpio.INPUT)
@@ -103,10 +109,13 @@ try:
     hostname = socket.gethostname()
     ip = socket.gethostbyname(f'{hostname}.local')
     print(f"IP: {ip}")
-    display.show(f"{ip}", show_times=2)
 
-    display.show("0000")
+    display.set_ip(ip)
+    display.set_clicker_name(configuration['clicker-identifier'].split("_")[0])
+    display.set_red_score(0)
+    display.set_blue_score(0)
     
+       
     startup_tick = pi.get_current_tick()
     _setup_switch(25, lambda gpio, level, tick: button_pressed(tick, RED))
     _setup_switch(17, lambda gpio, level, tick: button_pressed(tick, BLUE))
