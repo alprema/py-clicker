@@ -8,7 +8,6 @@ Raspberry Pi score counter for Canne de combat
 * Configure Wifi connection / autologin in `raspi-config`
 * Install the following packages:
   * adafruit-circuitpython-ssd1306 (pip)
-  * python3-pil (apt)
   * python3-numpy (apt)
   * pigpio (http://abyz.me.uk/rpi/pigpio/download.html)
   * pyyaml (pip)
