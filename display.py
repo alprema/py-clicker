@@ -47,7 +47,7 @@ class Display:
         score_string_size = 5
         digits = 1 if score < 10 else 2
 
-        string_width = digits * self._font_base_width * score_string_size+ ((digits - 1) * score_string_size )
+        string_width = digits * self._font_base_width * score_string_size + ((digits - 1) * score_string_size)
         string_height = self._font_base_height * score_string_size
 
         screen.text(
@@ -66,7 +66,7 @@ class Display:
         bottom_string_size = 1
         digits = len(text)
 
-        string_width = digits * self._font_base_width * bottom_string_size + ((digits - 1) * bottom_string_size )
+        string_width = digits * self._font_base_width * bottom_string_size + ((digits - 1) * bottom_string_size)
         string_height = self._font_base_height * bottom_string_size
 
         screen.text(
