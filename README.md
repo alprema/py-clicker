@@ -22,6 +22,7 @@ Raspberry Pi score counter for Canne de combat
     dtparam=i2c_arm_baudrate=1000000
 ```
 
+* Configure WiFi in `/etc/wpa_supplicant/wpa_supplicant.conf `
 
 * Add this to the end of your `.profile`:
 ``` bash
