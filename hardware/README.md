@@ -36,4 +36,11 @@
 
 ### Assembly
 #### Cables
-* TODO
+* Left screen: 4 x 5cm
+* Right screen: 4 x 13 cm
+* Red button: 2 x 12 cm
+* Green button: 2 x 12 cm
+* Blue button: 2 x 16 cm
+* USB to step-up: 2 x 16 cm
+* Step-up to RPI: 3 x 14 cm
+
