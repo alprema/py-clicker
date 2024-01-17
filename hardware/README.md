@@ -3,44 +3,37 @@
 ## Components
 * 2 x AZDelivery SSD1306 OLED screen
 * 1 x Raspberry Pi Zero W
-* 1 x PowerBoost 1000 Charger
-* 1 x 3000MAh LiPo battery
+* 1 x TP4056 battery charger
+* 1 x LM2596S buck converter
+* 1 x 5000MAh LiPo battery
 * 3 x Clicker buttons
 * 1 x Power button
-* 1 x ~65mm x ~75mm prototype board
 
 ## Pinout
 ![Wiring](wiring.png)
-(Source: https://lucid.app/lucidchart/0bcb015d-9d2f-48c5-8a88-e3d72c70ac0a/)
+(Source: https://lucid.app/publicSegments/view/29dfcc4b-7ac9-45ab-b54a-e5f21a3d707d)
 
 ### Displays
 - Left screen address: 0x3c
 - Right screen address: 0x3d
 
-### Switches
+### GPIO pinout
 | Switch color | GPIO #|
 |------|-----------|
-|Red|25|
-|Green|23|
-|Blue|17|
+| Red switch |25|
+| Green switch (reset) |23|
+| Blue switch |17|
+| 5V+ input | 04 |
+| 5V- input | 06 |
+| Screen VCC+ | 01 |
+| Screen VCC- | 09 |
+| Screen SDA | 03 |
+| Screen SCL | 05 |
 
 ## Casing
 ### Components
-Velleman case G738 (https://www.velleman.eu/products/view?id=60941)
-
-### Cutout diagram
-![CutoutSchema](casing_cutout.jpg)
-The screen board needs to be 7.5cm x 6.5cm (8 3-holes connectors)
+3D printed from `box_body.stl`.
 
 ### Assembly
 #### Cables
-* Raspberry to screen board: 7cm
-* Raspberry to buttons: 10cm
-* Raspberry to power supply: 17cm
-* Power supply to switch: 17cm
-
-#### Spacers
-Nylon auto-adhesive spacers 
-* Power supply: HC-5
-* Raspberry: HC-8
-* Screen board: HC-6
+* TODO
