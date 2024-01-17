@@ -4,7 +4,7 @@
 * 2 x AZDelivery SSD1306 OLED screen
 * 1 x Raspberry Pi Zero W
 * 1 x TP4056 battery charger
-* 1 x LM2596S buck converter
+* 1 x MT3608 step up converter
 * 1 x 5000MAh LiPo battery
 * 3 x Clicker buttons
 * 1 x Power button
