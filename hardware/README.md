@@ -1,5 +1,13 @@
 
 # Hardware
+
+## Overview
+
+[<img src="clicker_front.jpg" alt="drawing" width="300"/>](clicker_front.jpg)
+[<img src="clicker_back.jpg" alt="drawing" width="300"/>](clicker_back.jpg)
+[<img src="clicker_inside.jpg" alt="drawing" width="300"/>](clicker_inside.jpg)
+
+
 ## Components
 * 2 x AZDelivery SSD1306 OLED screen
 * 1 x Raspberry Pi Zero W
