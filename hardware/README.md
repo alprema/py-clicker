@@ -40,7 +40,7 @@
 
 ## Casing
 ### Components
-3D printed from `box_body.stl`.
+3D printed from `box_body.stl` using PLA for the casing. Machine cut from PMMA for the lid.
 
 ### Assembly
 #### Cables
